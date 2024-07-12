@@ -1,2 +1,3 @@
-# Love4Movies
-App built for those who love movies.
+# love_4_movies
+
+A new Flutter project.

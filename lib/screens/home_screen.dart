@@ -65,8 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 30),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -81,8 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 50,
                               decoration: BoxDecoration(
                                 image: const DecorationImage(
-                                  image: NetworkImage(
-                                      'https://plus.unsplash.com/premium_photo-1710961232986-36cead00da3c?q=80&w=1984&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                                  image: NetworkImage('https://plus.unsplash.com/premium_photo-1710961232986-36cead00da3c?q=80&w=1984&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
                                   fit: BoxFit.cover,
                                 ),
                                 borderRadius: BorderRadius.circular(30),
@@ -220,7 +218,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _movieListBuilder(List<MovieModel> moviesList) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+      height: MediaQuery.of(context).size.height * 0.27,
       child: ListView.builder(
+          scrollDirection: Axis.horizontal,
           itemCount: moviesList.length,
           itemBuilder: (context, index) {
             return CustomCard(movie: moviesList[index]);

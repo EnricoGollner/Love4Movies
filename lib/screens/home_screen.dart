@@ -5,6 +5,8 @@ import 'package:love_4_movies/core/theme/fonts.dart';
 import 'package:love_4_movies/data/movie.dart';
 import 'package:love_4_movies/widgets/custom_card.dart';
 import 'package:love_4_movies/widgets/custom_card_thumbnail.dart';
+import 'package:love_4_movies/widgets/custom_genre_card.dart';
+import 'package:love_4_movies/widgets/custom_section_title.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // Items
   final List<MovieModel> _forYouItemsList = List.of(forYouImages);
   final List<MovieModel> _popularItemsList = List.of(popularImages);
+  final List<MovieModel> _genresItemsList = List.of(genresList);
 
   int _currentPage = 0;
 
@@ -128,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  //For you section
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                     child: Text(
@@ -153,35 +157,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Popular',
-                              style: TextStyle(
-                                color: Colors.white54,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            Text(
-                              'See all',
-                              style: TextStyle(
-                                color: kButtonColor,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  //Popular section
+                  CustomSectionTitle(
+                    title: 'Popular',
+                    onPressed: () {},
                   ),
                   _movieListBuilder(_popularItemsList),
+                  //Genre section
+                  CustomSectionTitle(
+                    title: 'Genres',
+                    onPressed: () {},
+                  ),
+                  _genreListBuilder(_genresItemsList),
                 ],
               ),
 
@@ -218,13 +205,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _movieListBuilder(List<MovieModel> moviesList) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
       height: MediaQuery.of(context).size.height * 0.27,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: moviesList.length,
           itemBuilder: (context, index) {
             return CustomCard(movie: moviesList[index]);
+        },
+      ),
+    );
+  }
+
+  Widget _genreListBuilder(List<MovieModel> moviesList) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.2,
+      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: genresList.length,
+        itemBuilder: (context, index) {
+          return CustomGenreCard(
+            movieModel: _genresItemsList[index],
+          );
         },
       ),
     );

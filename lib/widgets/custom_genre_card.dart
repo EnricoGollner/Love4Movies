@@ -17,6 +17,19 @@ class CustomGenreCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
               image: AssetImage(movieModel.imageAsset),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 20,
+          child: Text(
+            movieModel.movieName!,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

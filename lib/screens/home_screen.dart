@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:love_4_movies/core/theme/colors.dart';
@@ -18,12 +20,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController(viewportFraction: 0.9);
 
-  // Items
-  final List<MovieModel> _forYouItemsList = List.of(forYouImages);
-  final List<MovieModel> _popularItemsList = List.of(popularImages);
-  final List<MovieModel> _genresItemsList = List.of(genresList);
-
   int _currentPage = 0;
+
+  // TabBar icons
+  List<IconData> _tabBarIcons = [
+    FontAwesomeIcons.house,
+    FontAwesomeIcons.compass,
+    FontAwesomeIcons.video,
+    FontAwesomeIcons.user,
+  ];
+  
+  // Items
+  final List<MovieModel> _forYouItemsList = List.of(forYouList);
+  final List<MovieModel> _popularItemsList = List.of(popularList);
+  final List<MovieModel> _genresItemsList = List.of(genresList);
+  final List<MovieModel> _legendaryItemsList = List.of(legendaryList);
 
   // Indicators
   List<Widget> _buildPageIndicatorWidget() {
@@ -169,14 +180,48 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {},
                   ),
                   _genreListBuilder(_genresItemsList),
+                  // Legendary Movies
+                  CustomSectionTitle(
+                    title: 'Legendary movies',
+                    onPressed: () {},
+                  ),
+                  _movieListBuilder(_legendaryItemsList),
                 ],
               ),
 
             ),
           ),
           Positioned(
-            child: Container(
-
+            bottom: 30,
+            left: 25,
+            right: 25,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 25.0,
+                  sigmaY: 25.0
+                ),
+                child: Container(
+                  color: kSearchbarColor.withOpacity(0.6),
+                  width: MediaQuery.of(context).size.width,
+                  height: 80,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ..._tabBarIcons.map((icon) {
+                        return Icon(
+                          icon,
+                          color: icon == FontAwesomeIcons.house
+                              ? Colors.white
+                              : Colors.white54,
+                          size: 22,
+                        );
+                      })
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ],
@@ -220,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _genreListBuilder(List<MovieModel> moviesList) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.2,
-      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 30),
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,

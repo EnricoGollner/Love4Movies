@@ -16,14 +16,14 @@ class MovieModel {
 }
 
 // data
-final forYouImages = [
+final forYouList = [
   MovieModel(imageAsset: "assets/for_your_image_1.jpeg"),
   MovieModel(imageAsset: "assets/for_your_image_2.jpeg"),
   MovieModel(imageAsset: "assets/for_your_image_3.jpeg"),
   MovieModel(imageAsset: "assets/for_your_image_4.jpeg"),
 ];
 
-final popularImages = [
+final popularList = [
   MovieModel(
       imageAsset: "assets/popular_image_1.jpeg",
       movieName: "Dune",
@@ -101,7 +101,7 @@ final popularImages = [
       year: "2021",
       movieRating: "9.2"),
 ];
-final legendaryImages = [
+final legendaryList = [
   MovieModel(
       imageAsset: "assets/legendary_movie_1.jpeg",
       movieName: "Alien",

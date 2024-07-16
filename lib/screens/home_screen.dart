@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentPage = 0;
 
   // TabBar icons
-  List<IconData> _tabBarIcons = [
+  final List<IconData> _tabBarIcons = [
     FontAwesomeIcons.house,
     FontAwesomeIcons.compass,
     FontAwesomeIcons.video,
@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Positioned(
-            bottom: 30,
+            bottom: 10,
             left: 25,
             right: 25,
             child: ClipRRect(

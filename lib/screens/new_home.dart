@@ -19,10 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final PageController _pageController = PageController(viewportFraction: 0.9);
-
-  int _currentPage = 0;
-
   // TabBar icons
   final List<IconData> _tabBarIcons = [
     FontAwesomeIcons.house,
@@ -30,35 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
     FontAwesomeIcons.video,
     FontAwesomeIcons.user,
   ];
-
-  // Indicators
-  List<Widget> _buildPageIndicatorWidget() {
-    List<Widget> list = [];
-    for (int i = 0; i < forYouList.length; i++) {
-      list.add(i == _currentPage ? _indicator(true) : _indicator(false));
-    }
-    return list;
-  }
-
-  Widget _indicator(bool isActive) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 150),
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      height: 8,
-      width: 8,
-      decoration: BoxDecoration(
-        color: isActive ? Colors.white : Colors.white24,
-        borderRadius: BorderRadius.circular(10)
-      ),
-      
-    );
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
+  
+  // Items
+  final List<MovieModel> _forYouItemsList = List.of(forYouList);
+  final List<MovieModel> _popularItemsList = List.of(popularList);
+  final List<MovieModel> _genresItemsList = List.of(genresList);
+  final List<MovieModel> _legendaryItemsList = List.of(legendaryList);
 
   @override
   Widget build(BuildContext context) {
@@ -149,45 +122,43 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  _forYouCardsLayout(forYouList),
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: kSearchbarColor,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: _buildPageIndicatorWidget(),
-                      ),
-                    ),
-                  ),
-                  CustomSectionTitle(
-                    title: 'New Titles',
-                    onPressed: () {},
-                  ),
-                  _newMoviesCarouselSlider(legendaryList),
+
+                  _forYouCardsLayout(_forYouItemsList),
+
+                  // Center(
+                  //   child: Container(
+                  //     padding: const EdgeInsets.all(8),
+                  //     decoration: BoxDecoration(
+                  //       color: kSearchbarColor,
+                  //       borderRadius: BorderRadius.circular(20),
+                  //     ),
+                  //     child: Row(
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       children: _buildPageIndicatorWidget(),
+                  //     ),
+                  //   ),
+                  // ),
                   //Popular section
                   CustomSectionTitle(
                     title: 'Popular',
                     onPressed: () {},
                   ),
-                  _movieListBuilder(popularList),
+                  _movieListBuilder(_popularItemsList),
                   //Genre section
                   CustomSectionTitle(
                     title: 'Genres',
                     onPressed: () {},
                   ),
-                  _genreListBuilder(genresList),
+                  _genreListBuilder(_genresItemsList),
                   // Legendary Movies
                   CustomSectionTitle(
                     title: 'Legendary movies',
                     onPressed: () {},
                   ),
-                  _movieListBuilder(legendaryList),
+                  _movieListBuilder(_legendaryItemsList),
                 ],
               ),
+
             ),
           ),
           Positioned(
@@ -228,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-    Widget _newMoviesCarouselSlider(List<MovieModel> moviesList) {
+  Widget _forYouCardsLayout(List<MovieModel> moviesList) {
     return CarouselSlider.builder(
       itemCount: moviesList.length,
       options: CarouselOptions(
@@ -247,24 +218,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _forYouCardsLayout(List<MovieModel> moviesList) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: PageView.builder(
-        physics: const ClampingScrollPhysics(),
-        controller: _pageController,
-        itemCount: moviesList.length,
-        itemBuilder: (context, index) {
-          return CustomCardThumbnail(
-            imageAsset: moviesList[index].imageAsset,
-          );
-        },
-        onPageChanged: (int page) {
-          setState(() => _currentPage = page);
-        },
-      ),
-    );
-  }
+  
+  // // Indicators
+  // List<Widget> _buildPageIndicatorWidget() {
+  //   List<Widget> list = [];
+  //   for (int i = 0; i < _forYouItemsList.length; i++) {
+  //     list.add(i == _currentPage ? _indicator(true) : _indicator(false));
+  //   }
+  //   return list;
+  // }
+
+  // Widget _indicator(bool isActive) {
+  //   return AnimatedContainer(
+  //     duration: const Duration(milliseconds: 150),
+  //     margin: const EdgeInsets.symmetric(horizontal: 5),
+  //     height: 8,
+  //     width: 8,
+  //     decoration: BoxDecoration(
+  //       color: isActive ? Colors.white : Colors.white24,
+  //       borderRadius: BorderRadius.circular(10)
+  //     ),
+      
+  //   );
+  // }
 
   Widget _movieListBuilder(List<MovieModel> moviesList) {
     return Container(
@@ -290,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: genresList.length,
         itemBuilder: (context, index) {
           return CustomGenreCard(
-            movieModel: genresList[index],
+            movieModel: _genresItemsList[index],
           );
         },
       ),

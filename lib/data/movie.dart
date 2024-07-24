@@ -20,7 +20,6 @@ final forYouList = [
   MovieModel(imageAsset: "assets/for_your_image_1.jpeg"),
   MovieModel(imageAsset: "assets/for_your_image_2.jpeg"),
   MovieModel(imageAsset: "assets/for_your_image_3.jpeg"),
-  MovieModel(imageAsset: "assets/for_your_image_4.jpeg"),
 ];
 
 final popularList = [
